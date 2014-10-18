@@ -1,4 +1,6 @@
 uestcshuo.github.io
 ===================
 
-My Blog
+This is Wangshuo's Blog: http://uestcshuo.github.io
+
+Thanks!
