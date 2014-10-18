@@ -1,21 +1,21 @@
 # Site settings
-title: "Jekyll template demo"
-description: "jekyll template demo."
-keywords: "jekyll, template, demo"
+title: "WANGSHUO'S BLOG"
+description: "the blog of wangshuo."
+keywords: "blog, wangshuo, jekyll"
 baseurl: ""
-url: "http:////ihavee.github.io"
+url: "http:////uestcshuo.github.io"
 highlighter: pygments
 paginate: 5
 author:
-    name: Havee
-    github: Ihavee
+    name: wangshuo
+    github: uestcshuo
     email:
-    gitcafe: Havee
+    gitcafe: 
     twitter:
     facebook:
     googleplus:
-    weibo: Havanna
-qiniudn: //havee.qiniudn.com                # //{bucket}.qiniudn.com
+    weibo: 
+qiniudn:                 # //{bucket}.qiniudn.com
 atom_path: /atom.xml
 rss_path: /rss.xml
 
@@ -44,5 +44,5 @@ analytics:
 # blogroll
 blogroll: true
 brlist:
-    - text: "Havee's Space"
-      url : //havee.me/
+    - text: "Wangshuo's Space"
+      url : //uestcshuo.github.io/
