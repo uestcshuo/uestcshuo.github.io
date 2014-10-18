@@ -40,7 +40,7 @@ int main(int argc, char **argv)
         return 0;
 }
 ```
-
+<!-- more -->
 下面是表格
 
 |head1|head2|head3|head4
