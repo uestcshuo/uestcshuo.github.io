@@ -28,7 +28,7 @@ permalink: /:categories/:year-:month/:title.html
 # comment
 comments:
     duoshuo:
-        name:                               # short name
+        name: wangshuo                               # short name
         rcomments:
             num: 10
             avatar: 0
