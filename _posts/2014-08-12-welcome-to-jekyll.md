@@ -7,17 +7,6 @@ category: demo
 tags: [test, jekyll, welcome]
 ---
 
-# 测试 h1
-
-## 测试 h2
-
-**测试粗体**
-
-*测试斜体*
-
->测试引用
-
-- - -
 
 测试行代码 `_post`
 
