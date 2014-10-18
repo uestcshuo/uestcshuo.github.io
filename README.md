@@ -1,6 +1,9 @@
-uestcshuo.github.io
-===================
+#### create new post
 
-This is Wangshuo's Blog: http://uestcshuo.github.io
+	rake post title='A Title'
+	or
+	rake post title="A Title" [date="2012-02-09"] [tags=[tag1,tag2]] [category="category"]
 
-Thanks!
+#### create new page
+
+	rake page name='about.html'
