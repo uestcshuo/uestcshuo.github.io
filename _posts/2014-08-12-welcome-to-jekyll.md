@@ -17,7 +17,7 @@ tags: [sublime, ubuntu]
 
 保存下面代码到`sublime_imfix.c`
 
-`
+<% hightlight c %>
 #include <gtk/gtkimcontext.h>
 void gtk_im_context_set_client_window (GtkIMContext *context, GdkWindow *window)
 {
@@ -35,8 +35,8 @@ void gtk_im_context_set_client_window (GtkIMContext *context, GdkWindow *window)
  	if(width != 0 && height !=0)
    		gtk_im_context_focus_in(context);
 }
+<% endhightlight %>
 
-`
 #### 步骤二
 
 将上一步的代码编译成共享库libsublime-imfix.so:
