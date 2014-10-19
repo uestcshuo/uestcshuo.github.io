@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Ubuntu下Sublime Text 3解决无法输入中文的方法"
+title:  "Sublime3中文输入法问题"
 keywords: "ubuntu, Sublime, 中文"
 description: "Ubuntu下Sublime Text 3解决无法输入中文的方法"
 category: 工具
