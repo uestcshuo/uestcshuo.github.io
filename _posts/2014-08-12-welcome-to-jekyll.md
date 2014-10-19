@@ -36,6 +36,7 @@ void gtk_im_context_set_client_window (GtkIMContext *context, GdkWindow *window)
    		gtk_im_context_focus_in(context);
 }
 ```
+<!-- more -->
 
 #### 步骤二
 
