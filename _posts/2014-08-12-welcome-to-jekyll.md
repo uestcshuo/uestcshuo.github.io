@@ -39,7 +39,7 @@ void gtk_im_context_set_client_window (GtkIMContext *context, GdkWindow *window)
 
 #### 步骤二
 
-将上一步的代码编译成共享库libsublime-imfix.so:
+将上一步的代码编译成共享库`libsublime-imfix.so`:
 
 ```bash
 cd ~
@@ -49,7 +49,7 @@ gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags 
 
 #### 步骤三
 
-然后将libsublime-imfix.so拷贝到sublime_text所在文件夹:
+然后将`libsublime-imfix.so`拷贝到`sublime_text`所在文件夹:
 
 ```bash
 sudo mv libsublime-imfix.so /opt/sublime_text/
@@ -57,7 +57,7 @@ sudo mv libsublime-imfix.so /opt/sublime_text/
 
 #### 步骤四
 
-修改文件/usr/bin/subl的内容
+修改文件`/usr/bin/subl`的内容
 
 ```bash
 sudo gedit /usr/bin/subl
@@ -79,7 +79,7 @@ LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_
 
 #### 步骤五
 
-为了使用鼠标右键打开文件时能够使用中文输入，还需要修改文件sublime_text.desktop的内容。
+为了使用鼠标右键打开文件时能够使用中文输入，还需要修改文件`sublime_text.desktop`的内容。
 
 ```bash
 sudo gedit /usr/share/applications/sublime-text.desktop
@@ -122,9 +122,9 @@ Exec=bash -c "LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime
 **注意**：
 修改时请注意双引号"",否则会导致不能打开带有空格文件名的文件。
 
-此处仅修改了/usr/share/applications/sublime-text.desktop，但可以正常使用了。
+此处仅修改了`/usr/share/applications/sublime-text.desktop`，但可以正常使用了。
 
-opt/sublime_text/目录下的sublime-text.desktop可以修改，也可不修改。
+`opt/sublime_text/`目录下的`sublime-text.desktop`可以修改，也可不修改。
 
 #### 步骤六
 
