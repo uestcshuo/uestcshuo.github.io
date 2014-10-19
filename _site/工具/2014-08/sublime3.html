@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sublime3中文输入法问题 - WANGSHUO'S BLOG</title>
+  <meta name="description" content="Ubuntu下Sublime Text 3解决无法输入中文的方法">
+  <meta name="keywords" content="ubuntu, Sublime, 中文">
+  <meta name="author" content="wangshuo">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="canonical" href="http:////uestcshuo.github.io/%E5%B7%A5%E5%85%B7/2014-08/sublime3.html">
+
+  <link rel="stylesheet" href="/style/css/bootstrap.min.css" media="all">
+  <link rel="stylesheet" href="/style/css/style.css" media="all">
+  <link rel="stylesheet" href="/style/css/pygments.css" media="all">
+  <link rel="stylesheet" href="/style/css/font-awesome.css" media="all">
+
+  <!-- atom & rss feed -->
+  <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="WANGSHUO'S BLOG RSS Feed">
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="WANGSHUO'S BLOG ATOM Feed">
+</head>
+
+
+  <body>
+    <div class="container">
+      <!--[if lt IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <div class="title"><a title="WANGSHUO'S BLOG" href="/">WANGSHUO'S BLOG</a></div>
+  <ul class="nav navbar-nav navbar-right visible-lg visible-md">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/uestcshuo" target="_blank" title="Github"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <article class="wrapper">
+      <div class="raw">
+        <div id="search-loader" style="display:none;text-align:center">
+          <img src="/style/img/loading.gif">
+        </div>
+        <time class="small">2014.08.12</time>
+<h2> Sublime3中文输入法问题 </h2>
+<h4>环境</h4>
+
+<ul>
+<li>ubuntu14.04</li>
+<li>搜狗输入法 for linux</li>
+<li>Sublime text 3</li>
+</ul>
+
+<h4>步骤一</h4>
+
+<p>保存下面代码到<code>sublime_imfix.c</code></p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;gtk/gtkimcontext.h&gt;</span>
+<span class="kt">void</span> <span class="nf">gtk_im_context_set_client_window</span> <span class="p">(</span><span class="n">GtkIMContext</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span> <span class="n">GdkWindow</span> <span class="o">*</span><span class="n">window</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">GtkIMContextClass</span> <span class="o">*</span><span class="n">klass</span><span class="p">;</span>
+    <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">GTK_IS_IM_CONTEXT</span> <span class="p">(</span><span class="n">context</span><span class="p">));</span>
+    <span class="n">klass</span> <span class="o">=</span> <span class="n">GTK_IM_CONTEXT_GET_CLASS</span> <span class="p">(</span><span class="n">context</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span><span class="p">)</span>
+        <span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">window</span><span class="p">);</span>
+    <span class="n">g_object_set_data</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">context</span><span class="p">),</span><span class="s">&quot;window&quot;</span><span class="p">,</span><span class="n">window</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GDK_IS_WINDOW</span> <span class="p">(</span><span class="n">window</span><span class="p">))</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">gdk_window_get_width</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">gdk_window_get_height</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">width</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">height</span> <span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">gtk_im_context_focus_in</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<!-- more -->
+
+<h4>步骤二</h4>
+
+<p>将上一步的代码编译成共享库<code>libsublime-imfix.so</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~
+gcc -shared -o libsublime-imfix.so sublime_imfix.c  <span class="sb">`</span>pkg-config --libs --cflags gtk+-2.0<span class="sb">`</span> -fPIC
+</code></pre></div>
+<h4>步骤三</h4>
+
+<p>然后将<code>libsublime-imfix.so</code>拷贝到<code>sublime_text</code>所在文件夹:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo mv libsublime-imfix.so /opt/sublime_text/
+</code></pre></div>
+<h4>步骤四</h4>
+
+<p>修改文件<code>/usr/bin/subl</code>的内容</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo gedit /usr/bin/subl
+</code></pre></div>
+<p>将</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
+<span class="nb">exec</span> /opt/sublime_text/sublime_text <span class="s2">&quot;$@&quot;</span>
+</code></pre></div>
+<p>修改为</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
+<span class="nv">LD_PRELOAD</span><span class="o">=</span>/opt/sublime_text/libsublime-imfix.so <span class="nb">exec</span> /opt/sublime_text/sublime_text <span class="s2">&quot;$@&quot;</span>
+</code></pre></div>
+<p>此时，在命令中执行 subl 将可以使用搜狗for linux的中文输入</p>
+
+<h4>步骤五</h4>
+
+<p>为了使用鼠标右键打开文件时能够使用中文输入，还需要修改文件<code>sublime_text.desktop</code>的内容。</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo gedit /usr/share/applications/sublime-text.desktop
+</code></pre></div>
+<p>将[Desktop Entry]中的字符串</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">Exec</span><span class="o">=</span>/opt/sublime_text/sublime_text %F
+</code></pre></div>
+<p>修改为</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">Exec</span><span class="o">=</span>bash -c <span class="s2">&quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text %F&quot;</span>
+</code></pre></div>
+<p>将[Desktop Action Window]中的字符串</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">Exec</span><span class="o">=</span>/opt/sublime_text/sublime_text -n
+</code></pre></div>
+<p>修改为</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">Exec</span><span class="o">=</span>bash -c <span class="s2">&quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text -n&quot;</span>
+</code></pre></div>
+<p>将[Desktop Action Document]中的字符串</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">Exec</span><span class="o">=</span>/opt/sublime_text/sublime_text --command new_file
+</code></pre></div>
+<p>修改为</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">Exec</span><span class="o">=</span>bash -c <span class="s2">&quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text --command new_file&quot;</span>
+</code></pre></div>
+<p><strong>注意</strong>：
+修改时请注意双引号&quot;&quot;,否则会导致不能打开带有空格文件名的文件。</p>
+
+<p>此处仅修改了<code>/usr/share/applications/sublime-text.desktop</code>，但可以正常使用了。</p>
+
+<p><code>opt/sublime_text/</code>目录下的<code>sublime-text.desktop</code>可以修改，也可不修改。</p>
+
+<h4>步骤六</h4>
+
+<p>经过以上步骤我们能在Sublime中输入中文了。</p>
+
+<ul class="pager">
+  
+  <li class="previous disabled"><a href="#">&larr; Prev</a></li>
+  
+  
+  <li class="next disabled"><a href="#">Next &rarr;</a></li>
+  
+</ul>
+
+
+
+
+
+      </div>
+      </article>
+
+      <footer class="footer text-center">
+  <p>&copy; 2014 <a href="" target="_blank" title="the blog of wangshuo.">wangshuo</a>. with Help from <a href="//jekyllrb.com/" target="_blank" title="Transform your plain text into static websites and blogs.">Jekyll</a> and <a href="//getbootstrap.com/" target="_blank" title="Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.">Bootstrap</a></p>
+</footer>
+
+    </div>
+
+    <script src="/style/js/jquery.min.js"></script>
+    <script src="/style/js/bootstrap.min.js"></script>
+    <script src="/style/js/webcore.js"></script>
+
+    
+
+    
+  </body>
+</html>

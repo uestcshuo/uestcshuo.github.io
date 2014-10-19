@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>WANGSHUO'S BLOG</title>
+  <link href="//atom.xml" rel="self"/>
+  <link href=""/>
+  <updated>2014-10-19T18:09:35+08:00</updated>
+  <id></id>
+  <author>
+    <name>wangshuo</name>
+  </author>
+
+  
+  <entry>
+    <title>Sublime3中文输入法问题</title>
+    <link href="/%E5%B7%A5%E5%85%B7/2014-08/sublime3.html"/>
+    <updated>2014-08-12T00:00:00+08:00</updated>
+    <id>/%E5%B7%A5%E5%85%B7/2014-08/sublime3</id>
+    <content type="html">环境
+
+
+ubuntu14.04
+搜狗输入法 for linux
+Sublime text 3
+
+
+步骤一
+
+保存下面代码到sublime_imfix.c
+#include &amp;lt;gtk/gtkimcontext.h&amp;gt;
+void gtk_im_context_set_client_window (GtkIMContext *context, GdkWindow *window)
+{
+    GtkIMContextClass *klass;
+    g_return_if_fail (GTK_IS_IM_CONTEXT (context));
+    klass = GTK_IM...</content>
+  </entry>
+  
+
+</feed>
