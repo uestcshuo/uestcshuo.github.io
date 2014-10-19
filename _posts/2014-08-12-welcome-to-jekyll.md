@@ -1,33 +1,144 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-keywords: "welcome, jekyll"
-description: "welcome to jekyll"
-category: demo
-tags: [test, jekyll, welcome]
+title:  "Ubuntu下Sublime Text 3解决无法输入中文的方法"
+keywords: "ubuntu, Sublime, 中文"
+description: "Ubuntu下Sublime Text 3解决无法输入中文的方法"
+category: 工具
+tags: [sublime, ubuntu]
 ---
 
+#### 环境
 
-测试行代码 `_post`
+- ubuntu14.04
+- 搜狗输入法 for linux
+- Sublime text 3
 
-测试段落代码
+#### 步骤一
 
-```ruby
-/* hello world demo */
-#include <stdio.h>
-int main(int argc, char **argv)
+保存下面代码到`sublime_imfix.c`
+
+`
+#include <gtk/gtkimcontext.h>
+void gtk_im_context_set_client_window (GtkIMContext *context, GdkWindow *window)
 {
-        printf("Hello, World!\n");
-        return 0;
-}
-```
-<!-- more -->
-下面是表格
+	GtkIMContextClass *klass;
+	g_return_if_fail (GTK_IS_IM_CONTEXT (context));
+	klass = GTK_IM_CONTEXT_GET_CLASS (context);
+ 	if (klass->set_client_window)
+   		klass->set_client_window (context, window);
+ 	g_object_set_data(G_OBJECT(context),"window",window);
 
-|head1|head2|head3|head4
-|---|:---|---:|:---:|
-|row1text1|row1text2|row1text3|row1text4
-|row2text1|row2text2|row2text3|row2text4
-|row3text1|row3text2|row3text3|row3text4
-|row4text1|row4text2|row4text3|row4text4
+ 	if(!GDK_IS_WINDOW (window))
+   		return;
+ 	int width = gdk_window_get_width(window);
+ 	int height = gdk_window_get_height(window);
+ 	if(width != 0 && height !=0)
+   		gtk_im_context_focus_in(context);
+}
+
+`
+#### 步骤二
+
+将上一步的代码编译成共享库libsublime-imfix.so:
+
+`
+
+cd ~
+
+gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
+
+`
+
+#### 步骤三
+
+然后将libsublime-imfix.so拷贝到sublime_text所在文件夹:
+
+`
+sudo mv libsublime-imfix.so /opt/sublime_text/
+
+`
+
+#### 步骤四
+
+修改文件/usr/bin/subl的内容
+
+`
+sudo gedit /usr/bin/subl
+
+`
+将
+
+`
+#!/bin/sh
+exec /opt/sublime_text/sublime_text "$@"
+
+`
+修改为
+
+`
+#!/bin/sh
+LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text "$@"
+
+`
+
+此时，在命令中执行 subl 将可以使用搜狗for linux的中文输入
+
+#### 步骤五
+
+为了使用鼠标右键打开文件时能够使用中文输入，还需要修改文件sublime_text.desktop的内容。
+
+`
+sudo gedit /usr/share/applications/sublime-text.desktop
+
+`
+
+将[Desktop Entry]中的字符串
+
+`
+Exec=/opt/sublime_text/sublime_text %F
+
+`
+修改为
+
+`
+Exec=bash -c "LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text %F"
+
+`
+
+将[Desktop Action Window]中的字符串
+
+`
+Exec=/opt/sublime_text/sublime_text -n
+
+`
+修改为
+
+`
+Exec=bash -c "LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text -n"
+
+`
+
+将[Desktop Action Document]中的字符串
+
+`
+Exec=/opt/sublime_text/sublime_text --command new_file
+
+`
+修改为
+
+`
+Exec=bash -c "LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text --command new_file"
+
+`
+
+**注意**：
+修改时请注意双引号"",否则会导致不能打开带有空格文件名的文件。
+
+此处仅修改了/usr/share/applications/sublime-text.desktop，但可以正常使用了。
+
+opt/sublime_text/目录下的sublime-text.desktop可以修改，也可不修改。
+
+#### 步骤六
+
+经过以上步骤我们能在Sublime中输入中文了。
 
