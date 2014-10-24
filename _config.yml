@@ -39,7 +39,7 @@ comments:
 # 网站统计
 analytics:
     baidu:
-        siteid:                             # 百度统计 js 代码后的字符串
+        siteid: uestcshuo                            # 百度统计 js 代码后的字符串
 
 # blogroll
 blogroll: true
