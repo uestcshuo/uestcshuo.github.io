@@ -2,8 +2,8 @@
 layout: post
 title: "jekyll安装流程"
 description: "jekyll安装流程"
-category: 技术分享
-tags: [install jekyll]
+category: 技术
+tags: [jekyll]
 ---
 {% include JB/setup %}
 

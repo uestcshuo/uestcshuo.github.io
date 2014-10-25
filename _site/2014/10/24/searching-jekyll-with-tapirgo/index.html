@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>GitHub基础入门</title>
+    <title>使用Tapir给Jekyll博客添加全文搜索</title>
     
-    <meta name="description" content="Github基础入门">
+    <meta name="description" content="用Tapir为Jekyll博客添加搜索功能">
     <meta name="author" content="王硕">
 
     <!-- Enable responsive viewport -->
@@ -136,7 +136,7 @@
             
 <!--
 <div class="page-header">
-  <h1>GitHub基础入门 <small>Supporting tagline</small></h1>
+  <h1>使用Tapir给Jekyll博客添加全文搜索 </h1>
 </div>
 -->
 
@@ -146,35 +146,129 @@
         <div class="content card">
             <div class="date_label">
                 <div class="day_month">
-                    04/20
+                    10/24
                 </div>
                 <div class="year">
                     2014
                 </div>
             </div>
-            <h2>GitHub基础入门</h2>
-            <p><code>技术</code></p>
+            <h2>使用Tapir给Jekyll博客添加全文搜索</h2>
+            <h3>1.修改atom.xml文件</h3>
 
-<p>是的，之前github的名字其实早已经如雷贯耳，只是我对它望而生畏，始终不敢去触碰它。因为它咋一看上去冷冰冰的，眼之所及，皆为代码；并且又找不到能详细却直观地描述它的理念的教程，所以我始终无从下手。</p>
+<pre><code>---
+layout: nil
+title : Atom Feed
+---
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;feed xmlns="http://www.w3.org/2005/Atom"&gt;
 
-<p>终于，两天前看到<strong>Blogging like a hacker</strong>这篇文章，决定试试搭建一个基于<strong>github pages</strong>的blog，遂开始尝试。</p>
+ &lt;title&gt;{{ site.title }}&lt;/title&gt;
+ &lt;link href="{{ site.production_url }}/{{ site.atom_path }}" rel="self"/&gt;
+ &lt;link href="{{ site.production_url }}"/&gt;
+ &lt;updated&gt;{{ site.time | date_to_xmlschema }}&lt;/updated&gt;
+ &lt;id&gt;{{ site.production_url }}&lt;/id&gt;
+ &lt;author&gt;
+   &lt;name&gt;{{ site.author.name }}&lt;/name&gt;
+   &lt;email&gt;{{ site.author.email }}&lt;/email&gt;
+ &lt;/author&gt;
+
+ {% for post in site.posts %}
+ &lt;entry&gt;
+   &lt;title&gt;{{ post.title }}&lt;/title&gt;
+   &lt;link href="{{ site.production_url }}{{ post.url }}"/&gt;
+   &lt;updated&gt;{{ post.date | date_to_xmlschema }}&lt;/updated&gt;
+   &lt;id&gt;{{ site.production_url }}{{ post.id }}&lt;/id&gt;
+   &lt;content type="html"&gt;{{ post.content | xml_escape }}&lt;/content&gt;
+   &lt;summary type="html"&gt;{{ post.description | xml_escape }}&lt;/summary&gt;
+ &lt;/entry&gt;
+ {% endfor %}
+
+&lt;/feed&gt;
+</code></pre>
 
 <!--break-->
 
 
-<p>首先下载<code>github</code>的windows客户端，客户端很简约，这个非常值得称赞。客户端登录后会直接跟你github账号进行绑定同步，因此你能直观的看到github上你的项目文件。硬着头皮尝试各种git命令，不求甚解。以前我很讨厌这种不求甚解的状态，当我在阅读一篇教程时总是希望先了解一下基本脉络，当差不多头脑里有个整体框架后再动手，这样的好处就是你知道你每一步是在做什么，成功率也比较高。但并不是每一篇教程或者每一个项目你都能很快地掌握其基本脉络，就像github。很多教程基本就是直接说输入</p>
+<p>以上修改是在<code>&lt;entry&gt;</code>节点的最后添加了如下内容：</p>
 
-<blockquote><p><code>git push origin master</code></p></blockquote>
+<p><code>&lt;summary type="html"&gt;{{ post.description | xml_escape }}&lt;/summary&gt;</code></p>
 
-<p>之类的，但他没告诉我输入之后能干什么，会发生什么。更没有人告诉我每一次必须先commit message才能提交。所以我只能糊里糊涂地跟着教程走，不过尝试了几遍之后，也就大概理解了脉络。</p>
+<p>添加这段内容的目的在于：搜索出的结果不会直接显示文章的全文，而是只显示文章的摘要。这么做有一点要求，那就是<code>_post</code>目录下，每篇文章的<code>YAML头部</code>都必须包含有<code>description</code>信息。</p>
 
-<ul>
-<li>github为版本控制系统。也就是说，你每一次的提交都会有相关的标记，以便进行回滚和协作。</li>
-<li>对于远程代码，可以通过<code>git clone</code>语句进行clone，可以clone到本地库，也可以clone到github库中。</li>
-<li>对于本地代码，可以通过<code>git remote set-url</code>语句绑定到对应的repository；也可以通过客户端里的public推送到github上。</li>
-<li>每一次push前必须先commit -m，客户端里是填写相应的summary。</li>
-</ul>
+<pre><code>---
+layout: post
+title: 使用Tapir给Jekyll博客添加全文搜索
+category : Tutorial
+tags : [Tapirgo]
+description : 用Tapir为Jekyll博客添加搜索功能
+---
+</code></pre>
 
+<p>以上是本文的<code>YAML头部</code>，给出以作说明。</p>
+
+<h3>2.提交更改到GitHub</h3>
+
+<pre><code>$ git add .
+$ git commit -m "modify atom.xml"
+$ git push origin master
+</code></pre>
+
+<h3>3.在Tapir注册atom.xml</h3>
+
+<p>登入<a href="http://tapirgo.com/">Tapir</a>，并填入<code>atom.xml</code>文件的位置和自己的邮箱，点击那个大大的橘色按钮以后，会生成一个token和一个secret token。本文只会使用到token，所以暂时可以不用在意secret token。</p>
+
+<h3>4.加入Tapir</h3>
+
+<p>Tapir的搜索用到了jQuery，所以需要加入jQuery和一个处理Tapir搜索的js文件。修改<code>_includes\themes\twitter</code>目录下的<code>default.html</code>文件的<code>&lt;head&gt;</code>部分如下：</p>
+
+<pre><code>&lt;!-- tapiro search --&gt;
+&lt;script src="{{ ASSET_PATH }}/js/jquery-1.6.1.min.js"&gt;&lt;/script&gt;
+&lt;script src="{{ ASSET_PATH }}/js/jquery-tapir.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3>5.在导航条里加搜索框</h3>
+
+<p>这一步对于使用Bootstrap的人来说比较简单，只要修改<code>_includes\themes\twitter</code>目录下的<code>default.html</code>文件即可:</p>
+
+<pre><code>&lt;div class="navbar navbar-fixed-top navbar-inverse"&gt;
+  &lt;div class="navbar-inner"&gt;
+    &lt;a class="brand" href="{{ HOME_PATH }}"&gt;{{ site.title }}&lt;/a&gt;
+    &lt;ul class="nav"&gt;
+    {% assign pages_list = site.pages %}
+    {% assign group = 'navigation' %}
+    {% include JB/pages_list %}
+      &lt;li&gt;
+        &lt;form class="navbar-search" action="search.html" method="get"&gt;
+          &lt;input name="query" type="text" class="search-query" placeholder="search"&gt;
+        &lt;/form&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>以上是修改后的<code>default.html</code>的导航条片段。值得注意的是，<code>form</code>元素的<code>action</code>地址是<code>search.html</code>，那么接着就该创建<code>search.html</code>了。</p>
+
+<h3>6.创建search.html</h3>
+
+<p>在<code>username.github.io</code>目录下创建一个<code>search.html</code>，文件内容如下：</p>
+
+<pre><code>---
+layout: page
+title: Search Results
+header: Search Results
+---
+{% include JB/setup %}
+&lt;div id="search_results"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  $('#search_results').tapir({'token': '5192e86e3f61b05bbb0009f6'});
+&lt;/script&gt;
+</code></pre>
+
+<p>需要关注的是jQuery选择的是ID为<code>search_results</code>的元素，这是<code>search.html</code>页面中用来摆放搜索结果的DIV的ID。另外，请自行替换<code>token</code>的值。</p>
+
+<p>现在搜索功能就已经完成了，可以先在本地使用<code>$ jekyll serve</code>进行编译和预览，然后再提交到GitHub上。</p>
 
         </div>
 
@@ -208,9 +302,9 @@
 
   
      
-    	<li><a href="/tags.html#jekyll-ref">jekyll <span>3</span></a></li>
+    	<li><a href="/tags.html#Tapir-ref">Tapir <span>1</span></a></li>
      
-    	<li><a href="/tags.html#github-ref">github <span>1</span></a></li>
+    	<li><a href="/tags.html#jekyll-ref">jekyll <span>3</span></a></li>
     
   
 
@@ -222,12 +316,11 @@
         <div class="pagination clearfix">
             <ul class="pull-right">
                 
-                <li class="prev disabled"><a class="fa fa-arrow-circle-left"> 前一篇</a>
+                <li class="prev"><a class="fa fa-arrow-circle-left" href="/2014/10/24/makefeixiang" title="马克飞象"> 前一篇</a>
                 </li>
                  
-                <li class="next"><a href="/2014/04/27/install-jekyll" title="jekyll安装流程">后一篇 <span class="fa fa-arrow-circle-right"></span></a>
-                </li>
-                
+                <li class="next disabled"><a>后一篇 <span class="fa fa-arrow-circle-right">  </span></a>
+                    
             </ul>
         </div>
         <div class="card">

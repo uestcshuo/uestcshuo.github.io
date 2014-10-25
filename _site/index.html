@@ -72,7 +72,7 @@
     
       
       	
-      	<li><a href="/1archive.html">归档</a></li>
+      	<li><a href="/about.html">关于</a></li>
       	
       
     
@@ -80,23 +80,7 @@
     
       
       	
-      	<li><a href="/2categories.html">分类</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/3tags.html">标签</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/4about.html">关于</a></li>
+      	<li><a href="/archive.html">归档</a></li>
       	
       
     
@@ -107,6 +91,14 @@
   
     
       
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
     
   
     
@@ -118,6 +110,14 @@
     
   
     
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
       
     
   
@@ -142,6 +142,59 @@
 <div class="row-fluid">
   <div class="span12">
     
+
+<div class = "card">
+        <div  class = "date_label">
+            <div class="day_month">
+                10/24
+            </div>
+            <div class="year">
+                2014
+            </div>
+        </div> 
+        <a href="/2014/10/24/searching-jekyll-with-tapirgo"><h2>使用Tapir给Jekyll博客添加全文搜索</h2></a>
+        <h3>1.修改atom.xml文件</h3>
+
+<pre><code>---
+layout: nil
+title : Atom Feed
+---
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;feed xmlns="http://www.w3.org/2005/Atom"&gt;
+
+ &lt;title&gt;{{ site.title }}&lt;/title&gt;
+ &lt;link href="{{ site.production_url }}/{{ site.atom_path }}" rel="self"/&gt;
+ &lt;link href="{{ site.production_url }}"/&gt;
+ &lt;updated&gt;{{ site.time | date_to_xmlschema }}&lt;/updated&gt;
+ &lt;id&gt;{{ site.production_url }}&lt;/id&gt;
+ &lt;author&gt;
+   &lt;name&gt;{{ site.author.name }}&lt;/name&gt;
+   &lt;email&gt;{{ site.author.email }}&lt;/email&gt;
+ &lt;/author&gt;
+
+ {% for post in site.posts %}
+ &lt;entry&gt;
+   &lt;title&gt;{{ post.title }}&lt;/title&gt;
+   &lt;link href="{{ site.production_url }}{{ post.url }}"/&gt;
+   &lt;updated&gt;{{ post.date | date_to_xmlschema }}&lt;/updated&gt;
+   &lt;id&gt;{{ site.production_url }}{{ post.id }}&lt;/id&gt;
+   &lt;content type="html"&gt;{{ post.content | xml_escape }}&lt;/content&gt;
+   &lt;summary type="html"&gt;{{ post.description | xml_escape }}&lt;/summary&gt;
+ &lt;/entry&gt;
+ {% endfor %}
+
+&lt;/feed&gt;
+</code></pre>
+
+
+    <div class = "read_more">
+        <a class="fa fa-link" href="/2014/10/24/searching-jekyll-with-tapirgo">阅读全文&hellip;</a>
+    </div>
+    
+</div>
+
+
+
 
 <div class = "card">
         <div  class = "date_label">

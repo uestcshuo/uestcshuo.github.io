@@ -2,8 +2,8 @@
 layout: post
 title: "马克飞象"
 description: "马克飞象"
-category: 技术分享
-tags: [evernote markdown]
+category: 技术
+tags: evernote markdown
 ---
 {% include JB/setup %}
 
