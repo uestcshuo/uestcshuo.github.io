@@ -6,6 +6,7 @@ http://uestcshuo.github.io/4about.html
 http://uestcshuo.github.io/atom.xml
 http://uestcshuo.github.io/index.html
 http://uestcshuo.github.io/rss.xml
+http://uestcshuo.github.io/search.html
 http://uestcshuo.github.io/sitemap.txt
 
 http://uestcshuo.github.io/2014/10/24/makefeixiang
