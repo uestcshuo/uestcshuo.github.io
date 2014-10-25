@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "install jekyll 流程"
-description: ""
+title: "jekyll安装流程"
+description: "jekyll安装流程"
 category: 技术分享
 tags: [install jekyll]
 ---
