@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <channel>
-    <title>WANGSHUO'S BLOG</title>
-    <description>the blog of wangshuo.</description>
-    <link></link>
-    <lastBuildDate>Sun, 19 Oct 2014 18:09:35 +0800</lastBuildDate>
-    <pubDate>Sun, 19 Oct 2014 18:09:35 +0800</pubDate>
-    <ttl>1800</ttl>
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+        <title>朝花夕拾</title>
+        <description>朝花夕拾 - 王硕</description>
+        <link>http://uestcshuo.github.io</link>
+        <link>http://uestcshuo.github.io</link>
+        <lastBuildDate>2014-10-25T15:34:06+08:00</lastBuildDate>
+        <pubDate>2014-10-25T15:34:06+08:00</pubDate>
+        <ttl>1800</ttl>
 
-    
-    <item>
-      <title><![CDATA[Sublime3中文输入法问题]]></title>
-      <description>&lt;h4&gt;环境&lt;/h4&gt;
+
+        <item>
+                <title>Sublime3中文输入法问题</title>
+                <description>&lt;h4&gt;环境&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;ubuntu14.04&lt;/li&gt;
@@ -19,80 +20,108 @@
 &lt;li&gt;Sublime text 3&lt;/li&gt;
 &lt;/ul&gt;
 
+
 &lt;h4&gt;步骤一&lt;/h4&gt;
 
 &lt;p&gt;保存下面代码到&lt;code&gt;sublime_imfix.c&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;gtk/gtkimcontext.h&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;gtk_im_context_set_client_window&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GtkIMContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GdkWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;GtkIMContextClass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;klass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;g_return_if_fail&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GTK_IS_IM_CONTEXT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;klass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GTK_IM_CONTEXT_GET_CLASS&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;klass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_client_window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;klass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_client_window&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;g_object_set_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G_OBJECT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;window&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GDK_IS_WINDOW&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gdk_window_get_width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gdk_window_get_height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;gtk_im_context_focus_in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;!-- more --&gt;
+&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;#include &amp;lt;gtk/gtkimcontext.h&amp;gt;
+void gtk_im_context_set_client_window (GtkIMContext *context, GdkWindow *window)
+{
+    GtkIMContextClass *klass;
+    g_return_if_fail (GTK_IS_IM_CONTEXT (context));
+    klass = GTK_IM_CONTEXT_GET_CLASS (context);
+    if (klass-&amp;gt;set_client_window)
+        klass-&amp;gt;set_client_window (context, window);
+    g_object_set_data(G_OBJECT(context),&quot;window&quot;,window);
+
+    if(!GDK_IS_WINDOW (window))
+        return;
+    int width = gdk_window_get_width(window);
+    int height = gdk_window_get_height(window);
+    if(width != 0 &amp;amp;&amp;amp; height !=0)
+        gtk_im_context_focus_in(context);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--break--&gt;
+
 
 &lt;h4&gt;步骤二&lt;/h4&gt;
 
 &lt;p&gt;将上一步的代码编译成共享库&lt;code&gt;libsublime-imfix.so&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
-gcc -shared -o libsublime-imfix.so sublime_imfix.c  &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;pkg-config --libs --cflags gtk+-2.0&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; -fPIC
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;cd ~
+gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h4&gt;步骤三&lt;/h4&gt;
 
 &lt;p&gt;然后将&lt;code&gt;libsublime-imfix.so&lt;/code&gt;拷贝到&lt;code&gt;sublime_text&lt;/code&gt;所在文件夹:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo mv libsublime-imfix.so /opt/sublime_text/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo mv libsublime-imfix.so /opt/sublime_text/
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h4&gt;步骤四&lt;/h4&gt;
 
 &lt;p&gt;修改文件&lt;code&gt;/usr/bin/subl&lt;/code&gt;的内容&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo gedit /usr/bin/subl
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo gedit /usr/bin/subl
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;将&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; /opt/sublime_text/sublime_text &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;#!/bin/sh
+exec /opt/sublime_text/sublime_text &quot;$@&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;修改为&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/opt/sublime_text/libsublime-imfix.so &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; /opt/sublime_text/sublime_text &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;#!/bin/sh
+LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text &quot;$@&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;此时，在命令中执行 subl 将可以使用搜狗for linux的中文输入&lt;/p&gt;
 
 &lt;h4&gt;步骤五&lt;/h4&gt;
 
 &lt;p&gt;为了使用鼠标右键打开文件时能够使用中文输入，还需要修改文件&lt;code&gt;sublime_text.desktop&lt;/code&gt;的内容。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo gedit /usr/share/applications/sublime-text.desktop
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo gedit /usr/share/applications/sublime-text.desktop
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;将[Desktop Entry]中的字符串&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/opt/sublime_text/sublime_text %F
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Exec=/opt/sublime_text/sublime_text %F
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;修改为&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bash -c &lt;span class=&quot;s2&quot;&gt;&amp;quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text %F&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Exec=bash -c &quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text %F&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;将[Desktop Action Window]中的字符串&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/opt/sublime_text/sublime_text -n
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Exec=/opt/sublime_text/sublime_text -n
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;修改为&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bash -c &lt;span class=&quot;s2&quot;&gt;&amp;quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text -n&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Exec=bash -c &quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text -n&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;将[Desktop Action Document]中的字符串&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/opt/sublime_text/sublime_text --command new_file
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Exec=/opt/sublime_text/sublime_text --command new_file
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;修改为&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bash -c &lt;span class=&quot;s2&quot;&gt;&amp;quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text --command new_file&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Exec=bash -c &quot;LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text --command new_file&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：
-修改时请注意双引号&amp;quot;&amp;quot;,否则会导致不能打开带有空格文件名的文件。&lt;/p&gt;
+修改时请注意双引号&quot;&quot;,否则会导致不能打开带有空格文件名的文件。&lt;/p&gt;
 
 &lt;p&gt;此处仅修改了&lt;code&gt;/usr/share/applications/sublime-text.desktop&lt;/code&gt;，但可以正常使用了。&lt;/p&gt;
 
@@ -102,10 +131,68 @@ gcc -shared -o libsublime-imfix.so sublime_imfix.c  &lt;span class=&quot;sb&quot
 
 &lt;p&gt;经过以上步骤我们能在Sublime中输入中文了。&lt;/p&gt;
 </description>
-      <link>/%E5%B7%A5%E5%85%B7/2014-08/sublime3.html</link>
-      <guid>/%E5%B7%A5%E5%85%B7/2014-08/sublime3</guid>
-      <pubDate>Tue, 12 Aug 2014 00:00:00 +0800</pubDate>
-    </item>
-    
-  </channel>
+                <link>http://uestcshuo.github.io/2014/08/12/sublime3</link>
+                <guid>http://uestcshuo.github.io/2014/08/12/sublime3</guid>
+                <pubDate>2014-08-12T00:00:00+08:00</pubDate>
+        </item>
+
+        <item>
+                <title>install jekyll 流程</title>
+                <description>&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;首先下载&lt;code&gt;ruby&lt;/code&gt;&lt;a href=&quot;http://rubyinstaller.org/downloads/&quot;&gt;安装ruby download&lt;/a&gt; ，然后下载&lt;strong&gt;DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe&lt;/strong&gt;。安装完&lt;code&gt;ruby&lt;/code&gt;后，再安装&lt;code&gt;rubyGems&lt;/code&gt;:运行&lt;code&gt;gem update --system&lt;/code&gt;即可。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;解压DevKit，然后命令行cd到该目录，运行&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;!--break--&gt;
+
+
+&lt;pre&gt;&lt;code&gt; ruby dk.rb init
+ ruby dk.rb review 
+ ruby dk.rb install
+ gem install rdiscount --platform=ruby
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DevKit安装完后，即可安装jekyll：&lt;code&gt;gem install jekyll&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+                <link>http://uestcshuo.github.io/2014/04/27/install-jekyll</link>
+                <guid>http://uestcshuo.github.io/2014/04/27/install-jekyll</guid>
+                <pubDate>2014-04-27T00:00:00+08:00</pubDate>
+        </item>
+
+        <item>
+                <title>GitHub基础入门</title>
+                <description>&lt;p&gt;&lt;code&gt;技术&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;是的，之前github的名字其实早已经如雷贯耳，只是我对它望而生畏，始终不敢去触碰它。因为它咋一看上去冷冰冰的，眼之所及，皆为代码；并且又找不到能详细却直观地描述它的理念的教程，所以我始终无从下手。&lt;/p&gt;
+
+&lt;p&gt;终于，两天前看到&lt;strong&gt;Blogging like a hacker&lt;/strong&gt;这篇文章，决定试试搭建一个基于&lt;strong&gt;github pages&lt;/strong&gt;的blog，遂开始尝试。&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+
+&lt;p&gt;首先下载&lt;code&gt;github&lt;/code&gt;的windows客户端，客户端很简约，这个非常值得称赞。客户端登录后会直接跟你github账号进行绑定同步，因此你能直观的看到github上你的项目文件。硬着头皮尝试各种git命令，不求甚解。以前我很讨厌这种不求甚解的状态，当我在阅读一篇教程时总是希望先了解一下基本脉络，当差不多头脑里有个整体框架后再动手，这样的好处就是你知道你每一步是在做什么，成功率也比较高。但并不是每一篇教程或者每一个项目你都能很快地掌握其基本脉络，就像github。很多教程基本就是直接说输入&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;&lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;之类的，但他没告诉我输入之后能干什么，会发生什么。更没有人告诉我每一次必须先commit message才能提交。所以我只能糊里糊涂地跟着教程走，不过尝试了几遍之后，也就大概理解了脉络。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;github为版本控制系统。也就是说，你每一次的提交都会有相关的标记，以便进行回滚和协作。&lt;/li&gt;
+&lt;li&gt;对于远程代码，可以通过&lt;code&gt;git clone&lt;/code&gt;语句进行clone，可以clone到本地库，也可以clone到github库中。&lt;/li&gt;
+&lt;li&gt;对于本地代码，可以通过&lt;code&gt;git remote set-url&lt;/code&gt;语句绑定到对应的repository；也可以通过客户端里的public推送到github上。&lt;/li&gt;
+&lt;li&gt;每一次push前必须先commit -m，客户端里是填写相应的summary。&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+                <link>http://uestcshuo.github.io/2014/04/20/githubpages</link>
+                <guid>http://uestcshuo.github.io/2014/04/20/githubpages</guid>
+                <pubDate>2014-04-20T00:00:00+08:00</pubDate>
+        </item>
+
+
+</channel>
 </rss>
