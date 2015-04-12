@@ -1,5 +1,6 @@
 body{ 
-  background: url("img/body.png");
+  /*background: url("img/body.png");*/
+  background-color: #4F4F4F;
   /*background-repeat: no-repeat;
   background-size: 100% 100%;*/
 }
